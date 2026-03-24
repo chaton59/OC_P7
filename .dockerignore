@@ -1,0 +1,60 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+.venv/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# IDE et éditeurs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.env
+.env.local
+
+# Données et logs
+*.log
+data/raw_*.json
+*.csv.bak
+*.sqlite
+*.db
+
+# Code inutile en production
+src/
+# scripts/ inclus dans l'image (OK 6.3 - reconstruction index)
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Documentation et configuration
+README.md
+LICENCE
+projet/
+*.md
+
+# Tests
+tests/
+pytest.ini
+.coverage
+
+# Autres
+.github/
+*/.git/

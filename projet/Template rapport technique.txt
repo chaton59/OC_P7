@@ -1,0 +1,97 @@
+Template rapport technique – Assistant intelligent de recommandation d’événements culturels
+
+1. Objectifs du projet
+
+Contexte : Présentez la mission confiée par Puls-Events.
+Problématique : En quoi un système RAG répond-il aux besoins métier ?
+Objectif du POC : Ce que vous cherchez à démontrer (faisabilité technique, valeur métier, performance).
+Périmètre : Zone géographique ciblée, période d’événements, données utilisées.
+
+
+2. Architecture du système
+
+Schéma global (schéma UML) :
+ - Données entrantes (API Open Agenda)
+ - Prétraitement / embeddings / base vectorielle
+ - Intégration LLM avec LangChain
+ - Exposition via API
+Technologies utilisées :
+ - 
+ -
+
+
+3. Préparation et vectorisation des données
+
+Source de données : API Open Agenda (paramètres utilisés, filtres appliqués)
+Nettoyage : Exemples d’anomalies corrigées, méthodes utilisées
+Chunking : Raison du découpage, taille choisie
+Embedding :
+ - Modèle utilisé (ex. : Mistral embedding API)
+ - Dimensionnalité, logique de batch, format des vecteurs
+
+4. Choix du modèle NLP
+
+Modèle sélectionné :
+Pourquoi ce modèle ? (Critères : coût, qualité, compatibilité LangChain…)
+Prompting (si utilisé) : Prompt de base / structure
+Limites du modèle : 
+
+
+5. Construction de la base vectorielle
+
+Faiss utilisé :
+Stratégie de persistance : 
+ - Format de sauvegarde ?
+ - nommage ?
+Métadonnées associées : 
+ - Ce qui est conservé pour chaque document
+
+
+6. API et endpoints exposés
+
+Framework utilisé : FastAPI / Flask
+Endpoints clés :
+ - /ask : question utilisateur, réponse du système
+ - /rebuild : reconstruction de l’index (si besoin)
+Format des requêtes/réponses
+Exemple d’appel API : avec curl ou code Python
+Tests effectués et documentés
+Gestion des erreurs / limitations
+
+
+7. Évaluation du système
+
+Jeu de test annoté :
+ - Nombre d’exemples
+ - Méthode d’annotation
+Métriques d’évaluation :
+ - Exemple : similarité sémantique, taux de couverture des réponses, score de satisfaction (subjectif)
+Résultats obtenus :
+ - Analyse quantitative (scores globaux)
+ - Analyse qualitative (exemples de bonnes/mauvaises réponses)
+
+
+8. Recommandations et perspectives
+
+Ce qui fonctionne bien
+Limites du POC :
+ - Volumétrie, performance, coût, couverture thématique ?
+Améliorations possibles :
+ - Ajout de…
+ - Amélioration de..
+ - Passage en production via…
+
+
+9.  Organisation du dépôt GitHub
+
+Arborescence du dépôt (fichiers clés, scripts, dossiers)
+Explication rapide de chaque répertoire
+
+
+10. Annexes (exemples)
+
+Extraits du jeu de test annoté
+Prompt utilisé (si spécifique)
+Extraits de logs ou exemples de réponse JSON
+
+

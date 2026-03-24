@@ -1,0 +1,59 @@
+Mission - Développez un assistant pour la recommandation d'évènements culturels
+
+Vous êtes data scientist freelance, spécialisé dans le traitement du langage naturel et la création de systèmes intelligents. Vous intervenez en mission pour Puls-Events, une entreprise technologique qui développe une plateforme de recommandations culturelles personnalisées.
+
+Puls-Events souhaite tester un nouveau chatbot intelligent capable de répondre à des questions utilisateurs sur les événements culturels à venir, en s'appuyant sur un système RAG (Retrieval-Augmented Generation) combinant recherche vectorielle et génération de réponse en langage naturel.
+
+Votre mission est de livrer un POC (Proof of Concept) complet, avec une API exploitable par les équipes produit et marketing. Ce POC devra démontrer la faisabilité technique, la pertinence métier et la performance du système.
+
+
+Vous recevez un message du responsable technique de Puls-Events : 
+
+
+"
+De : Jérémy
+
+À : moi
+
+Objet : Version fonctionnelle du POC RAG
+
+Salut,
+
+Comme convenu, on a besoin que tu finalises une version fonctionnelle du POC pour notre assistant intelligent.
+
+L’objectif est de démontrer aux équipes produit et marketing que notre plateforme peut intégrer un chatbot capable de répondre aux questions des utilisateurs en s’appuyant sur les données d’événements disponibles via l’API Open Agenda.
+
+Pour ce POC, tu peux cibler une zone géographique de ton choix, tant que les événements sélectionnés sont récents c’est  à dire de moins d’un an.
+
+Voici ce que nous attendons de ta part :
+
+ 
+
+Un système RAG fonctionnel intégrant LangChain, Mistral et Faiss, avec des scripts permettant la reconstruction de l’index vectoriel à partir des données.
+
+Une API REST (FastAPI ou Flask) exposant le système : elle doit permettre d’envoyer une question et de recevoir une réponse augmentée, générée à partir des données vectorisées.
+
+Un rapport technique (PDF ou README) documentant l’architecture, les choix technologiques, les modèles utilisés, les résultats observés et les pistes d’amélioration. Je te rajoute un template en pièce jointe. 
+
+Un jeu de test annoté (questions/réponses de référence) pour mesurer la qualité des réponses générées.
+
+Des tests unitaires pour valider l’indexation des données et les performances du système et l'automatisation des métriques d’évaluation.  
+
+Tu peux organiser ton dépôt GitHub de manière claire, avec des dossiers pour les scripts, les tests, l’API, et la documentation.
+
+Le but est de pouvoir tester rapidement ta solution.
+
+Nous attendons donc une démo live en réunion avec un exemple d’utilisation de l’API. Tu pourras conteneuriser le endpoint dans une image Docker et exécuter cette image en local pour la démonstration que le système est prêt pour un déploiement élargi. 
+
+Appuie-toi sur une présentation PowerPoint (10 à 15 slides) pour exposer les objectifs, le fonctionnement du système, les résultats, et les perspectives.
+
+Merci d’avance,
+
+ 
+
+Jérémy
+
+Responsable technique Puls-Events
+
+PJ : Template de rapport technique
+"
