@@ -171,9 +171,21 @@ def prepare_documents(df: pd.DataFrame) -> list[Document]:
         timings_fr = _timings_to_fr(timings)
         city = row.get('ville', 'N/A')  # colonne dédiée générée par 03_clean_data.py
 
+        # Extraire mois et année pour le filtrage par métadonnées dans le retriever.
+        # Le modèle d'embeddings ne discrimine pas bien les dates : "Mars 2026" et
+        # "Juin 2025" ont des vecteurs trop proches. Le retriever peut donc filtrer
+        # par métadonnée mois/annee avant de classer par similarité sémantique.
+        _MONTH_PATTERN = (r'\b(Janvier|Février|Mars|Avril|Mai|Juin|Juillet|'
+                          r'Août|Septembre|Octobre|Novembre|Décembre)\b')
+        _date_match = _re.search(
+            r'(\d{1,2})\s+' + _MONTH_PATTERN + r'\s+(\d{4})', str(timings_fr))
+        mois = _date_match.group(2) if _date_match else 'N/A'
+        annee = _date_match.group(3) if _date_match else 'N/A'
+
         # Formater le contenu en français structuré et optimisé pour la recherche sémantique
-        # La ville est placée en tête du chunk pour augmenter son poids dans le vecteur.
-        text_content = f"""Événement culturel : {title_clean}
+        # Le préfixe [Mois Année] augmente le poids de la date dans le vecteur d'embedding.
+        date_prefix = f"[{mois} {annee}] " if mois != 'N/A' else ""
+        text_content = f"""{date_prefix}Événement culturel : {title_clean}
 
 Ville : {city}
 
@@ -198,6 +210,8 @@ Liens utiles : {row.get('liens', 'N/A')}"""
             "title": title,
             "location": location,
             "city": city,
+            "mois": mois,      # ex: "Mars" – utilisé par DateAwareRetriever
+            "annee": annee,    # ex: "2026" – utilisé par DateAwareRetriever
             "timings": timings,
             "longDescription": description,
             "age": age_requirement,

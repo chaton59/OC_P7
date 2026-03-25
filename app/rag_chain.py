@@ -9,10 +9,11 @@ Ce module gère :
 """
 
 import os
+import re
 import asyncio
 from datetime import date
 from pathlib import Path
-from typing import Optional, Dict, List, Any
+from typing import Optional, Dict, List, Any, ClassVar
 
 from dotenv import load_dotenv
 from langchain_classic.chains import ConversationalRetrievalChain
@@ -20,7 +21,10 @@ from langchain_classic.memory import ConversationBufferMemory
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_mistralai import ChatMistralAI
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
+from langchain_core.retrievers import BaseRetriever
+from langchain_core.documents import Document
+from langchain_core.callbacks import CallbackManagerForRetrieverRun
 
 
 # ============================================================================
@@ -81,17 +85,78 @@ except Exception as e:
 
 
 # ============================================================================
-# ÉTAPE 4 : CONFIGURATION DU RETRIEVER
+# ÉTAPE 4 : CONFIGURATION DU RETRIEVER AVEC FILTRAGE TEMPOREL
 # ============================================================================
 
-# Crée un retriever MMR (Maximal Marginal Relevance) pour forcer la diversité
-# des résultats : récupère 20 candidats, retient les 6 les plus pertinents ET
-# les plus diversifiés. Evite de renvoyer 4 chunks du même lieu (ex: Meudon).
-retriever = vectorstore.as_retriever(
-    search_type="mmr",
-    search_kwargs={"k": 6, "fetch_k": 50, "lambda_mult": 0.7}
-)
-print("✅ Retriever MMR configuré (k=6, fetch_k=20) pour diversité géographique")
+# Problème identifié : le modèle d'embeddings (768 dim) ne discrimine pas les
+# dates — "Mars 2026" et "Juin 2025" produisent des vecteurs trop proches.
+# Résultat : la recherche FAISS top-k renvoie des événements de dates aléatoires.
+#
+# Solution : DateAwareRetriever
+# 1. Détecte le mois dans la requête (explicite ou référence relative)
+# 2. Filtre les résultats FAISS par métadonnée "mois" avant de classer
+# 3. Fallback sur MMR classique si aucun mois détecté
+
+
+class DateAwareRetriever(BaseRetriever):
+    """Retriever FAISS avec filtrage automatique par mois/année."""
+
+    vectorstore: Any  # FAISS vectorstore (Any pour compatibilité Pydantic)
+    k: int = 6
+    fetch_k: int = 500
+    lambda_mult: float = 0.7
+
+    model_config = {"arbitrary_types_allowed": True}
+
+    _MONTHS_FR: ClassVar[list] = [
+        "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+        "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+    ]
+
+    def _detect_month(self, query: str) -> Optional[str]:
+        """Détecte un mois dans la requête (explicite ou référence relative)."""
+        q = query.lower()
+        today = date.today()
+        current = self._MONTHS_FR[today.month - 1]
+
+        # Références temporelles relatives → mois courant
+        if re.search(r"ce mois|mois[- ]ci", q):
+            return current
+        if re.search(r"mois prochain", q):
+            return self._MONTHS_FR[min(today.month, 11)]
+        if re.search(r"ce week-?end|ce dimanche|ce samedi|cette semaine", q):
+            return current
+
+        # Nom de mois explicite (ex : "en mars", "mars 2026")
+        for m in self._MONTHS_FR:
+            if m.lower() in q:
+                return m
+        return None
+
+    def _get_relevant_documents(
+        self, query: str, *, run_manager: CallbackManagerForRetrieverRun
+    ) -> List[Document]:
+        month = self._detect_month(query)
+
+        if month:
+            docs = self.vectorstore.similarity_search(
+                query, k=self.k, fetch_k=self.fetch_k,
+                filter={"mois": month},
+            )
+            if docs:
+                print(f"  🔍 DateAwareRetriever : filtre mois={month} → {len(docs)} docs")
+                return docs
+            print(f"  ⚠️ DateAwareRetriever : filtre mois={month} → 0 docs, fallback MMR")
+
+        # Fallback : recherche MMR classique (pas de filtre temporel)
+        return self.vectorstore.max_marginal_relevance_search(
+            query, k=self.k, fetch_k=min(self.fetch_k, 50),
+            lambda_mult=self.lambda_mult,
+        )
+
+
+retriever = DateAwareRetriever(vectorstore=vectorstore, k=6, fetch_k=500, lambda_mult=0.7)
+print("✅ DateAwareRetriever configuré (k=6, fetch_k=500, filtrage temporel auto)")
 
 
 # ============================================================================
@@ -145,6 +210,30 @@ Question : {question}""")
 ])
 print("✅ Prompt conversationnel en français configuré")
 
+# ============================================================================
+# ÉTAPE 6b : PROMPT DE REFORMULATION (condense_question_prompt)
+# ============================================================================
+
+# Ce prompt reformule la question AVANT la recherche vectorielle.
+# Il résout les références temporelles ("ce mois-ci" → "Mars 2026")
+# pour que le retriever FAISS cherche avec les bons termes.
+condense_prompt = PromptTemplate.from_template(
+    f"""Aujourd'hui nous sommes le {_today_str}.
+Étant donné l'historique de conversation et la nouvelle question, reformule la question
+en une question autonome et explicite en français.
+IMPORTANT : remplace toute référence temporelle relative par la date ou le mois exact.
+Exemples :
+- "ce mois-ci" → "en {_MONTHS_FR[_today.month - 1]} {_today.year}"
+- "ce week-end" → "le samedi ou dimanche prochain en {_MONTHS_FR[_today.month - 1]} {_today.year}"
+- "en mars" → "en Mars 2026"
+- "prochainement" → "entre {_MONTHS_FR[_today.month - 1]} et {_MONTHS_FR[min(_today.month, 11)]} {_today.year}"
+Conserve les noms de villes, thèmes et détails de la question originale.
+
+Historique : {{chat_history}}
+Question : {{question}}
+Question reformulée :""")
+print("✅ Prompt de reformulation avec résolution temporelle configuré")
+
 
 # ============================================================================
 # ÉTAPE 7 : INITIALISATION DE LA MÉMOIRE COURT-TERME
@@ -185,6 +274,9 @@ try:
         memory=memory,
         # Réinjecte le prompt métier existant pour conserver la qualité des réponses.
         combine_docs_chain_kwargs={"prompt": qa_prompt},
+        # Reformule la question avant la recherche vectorielle :
+        # résout "ce mois-ci" → "Mars 2026", "ce week-end" → date exacte, etc.
+        condense_question_prompt=condense_prompt,
         # Retourne aussi les documents utilisés pour reconstruire les sources API.
         return_source_documents=True,
         # Active les logs internes pour faciliter la démo et le debug.

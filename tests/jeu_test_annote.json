@@ -2,81 +2,81 @@
   {
     "id": 1,
     "question": "Quels événements y a-t-il à Ville-d'Avray ce mois-ci ?",
-    "answer_annotated": "Je n'ai pas trouvé d'événement correspondant à Ville-d'Avray pour le mois de mars 2026 dans ma base. Les événements disponibles pour Ville-d'Avray sont : Foot Tri (6 septembre 2025) et Le Week-end des Rencontres Écologiques (21 juin 2025).",
-    "sources": ["VILLE D'AVRAY - FOOT TRI"],
-    "score": "⚠️ Partiel",
-    "commentaire": "Thème 1 : Le retriever ne résout pas 'ce mois-ci' en 'Mars 2026' car la recherche vectorielle précède la connaissance de la date. Limite RAG connue. L'événement 'Soirées chouettes' du 13 mars existe dans la base mais n'est pas remonté. Reformuler la question avec une date explicite ('en mars 2026') améliorerait le résultat."
+    "answer_annotated": "Les traditionnelles 'soirées chouettes' sont de retour : 13 mars 2026, 19h30-21h00, aux Étangs Corot, 92410 Ville-d'Avray.",
+    "sources": ["VILLE D'AVRAY : Les traditionnelles soirées chouettes"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 1 : Le DateAwareRetriever détecte 'ce mois-ci' → filtre mois=Mars, l'événement des soirées chouettes (13 mars) est retourné avec lieu, date et horaires. Amélioration majeure par rapport au run précédent."
   },
   {
     "id": 2,
     "question": "Y a-t-il un concert de jazz à Meudon en mars ?",
-    "answer_annotated": "Oui, il y a un concert étudiés des départements Jazz des conservatoires de GPSO (Jazz in GPSO - sketches of Miles) le lundi 23 mars 2026 au Conservatoire de Meudon, avec un concert étudiants à 17h (entrée libre) et le concert principal à 19h30. Aucune inscription requise.",
+    "answer_annotated": "Jazz in GPSO - Sketches of Miles, le 23 mars 2026, 19h30-21h00, au Conservatoire de Meudon, 7 boulevard des Nations Unies, 92190 Meudon.",
     "sources": ["Jazz in GPSO - sketches of Miles"],
     "score": "✅ Correct",
-    "commentaire": "Thème 2 : Concert jazz Meudon bien trouvé. Les deux créneaux (17h et 19h30) sont correctement identifiés."
+    "commentaire": "Thème 2 : Le filtre mois=Mars récupère le concert jazz. Réponse précise avec nom, date, heure et lieu."
   },
   {
     "id": 3,
     "question": "Je veux apprendre à fabriquer un gîte à insectes, qu'est-ce que vous proposez ?",
-    "answer_annotated": "Grand Paris Seine Ouest propose un atelier 'Fabriquez un gîte à insectes' le dimanche 6 avril 2026 de 15h à 18h au Parc de l'hôtel de ville à Chaville. L'atelier est gratuit, accessible à partir de 5 ans, activité familiale, dans la limite des places disponibles. Aucune inscription préalable mentionnée.",
-    "sources": ["Atelier Fabriquez un gîte à insectes - Chaville"],
-    "score": "⚠️ Partiel",
-    "commentaire": "Thème 3 : Un atelier gîtes à insectes est bien trouvé, mais celui de Boulogne-Billancourt (14 mars 2026) est manqué au profit de celui de Chaville (6 avril 2026). Plusieurs ateliers existent dans la base ; le retriever MMR a favorisé la diversité géographique."
+    "answer_annotated": "Fabrication de gîtes à insectes, samedi 14 mars 2026, 14h30-15h30 ou 15h45-16h45, Médiathèque du Point du Jour, 128 rue Les Enfants du Paradis, 92100 Boulogne-Billancourt. À partir de 5 ans.",
+    "sources": ["BOULOGNE-BILLANCOURT : Fabrication de gîtes à insectes"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 3 : L'atelier gîtes à insectes de Boulogne-Billancourt (mars 2026) est remonté en priorité. Deux créneaux horaires, lieu et âge minimum bien indiqués. Le contexte conversationnel oriente le filtre vers mars."
   },
   {
     "id": 4,
     "question": "Où puis-je faire un atelier vélo à Boulogne-Billancourt ?",
-    "answer_annotated": "Boulogne-Billancourt organise des ateliers vélo à la Maison de la Planète (72 allée du Forum, 92100). Le prochain est le 8 avril 2026 de 13h30 à 17h30 : diagnostic technique, petite réparation et découverte de vélos spéciaux (cargos et électriques). Gratuit, aucune inscription mentionnée.",
-    "sources": ["Atelier vélo : diagnostic et petite réparation - Boulogne-Billancourt"],
-    "score": "⚠️ Partiel",
-    "commentaire": "Thème 4 : Des ateliers vélo à Boulogne sont bien trouvés mais le LLM privilégie le prochain événement futur (8 avril) en filtrant correctement les événements passés. L'atelier du 21 mars (passé depuis le 25 mars) n'est plus pertinent."
+    "answer_annotated": "Deux ateliers vélo à Boulogne-Billancourt en mars 2026 : (1) 11 mars, 13h30-17h30, 72 allée du Forum (Maison de la Planète) – diagnostic, réparation et test trottinettes ; (2) 21 mars, 09h30-13h30, Place Jules Guesde – diagnostic, réparation et sécurité routière.",
+    "sources": ["Atelier vélo : diagnostic et petite réparation - 11 mars", "Atelier vélo : diagnostic et petite réparation - 21 mars"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 4 : Deux ateliers vélo distincts trouvés en mars 2026, avec dates, horaires et lieux précis. Amélioration : le run précédent ne trouvait qu'un seul atelier."
   },
   {
     "id": 5,
     "question": "Y a-t-il une sortie VTT possible à Meudon ?",
-    "answer_annotated": "Oui, il y a des sorties VTT organisées dans la forêt de Meudon au départ du Complexe sportif Marcel Bec (92310 Meudon). La prochaine date disponible est le 11 avril 2026 de 10h00 à 12h00. L'activité est gratuite, ouverte aux habitants de GPSO (adultes et enfants dès 8 ans), avec VTT en bon état et casque obligatoires. Inscription en ligne sur seineouest.fr.",
+    "answer_annotated": "Sortie VTT dans la forêt de Meudon, 21 mars 2026, 10h00-12h00, Complexe sportif Marcel Bec, 92310 Meudon.",
     "sources": ["Sortie VTT dans la forêt de Meudon"],
-    "score": "⚠️ Partiel",
-    "commentaire": "Thème 5 : La sortie VTT est bien identifiée. Le LLM filtre correctement les dates passées (mars 21 = passé). L'événement d'avril 2026 n'est pas toujours remonté par le retriever ; résultat variable selon la session."
+    "score": "✅ Correct",
+    "commentaire": "Thème 5 : VTT Meudon trouvé grâce au filtre mois=Mars (via contexte conversationnel). Date, heure et lieu précis. Auparavant non trouvé."
   },
   {
     "id": 6,
     "question": "Quelles activités pour les enfants peut-on faire en mars ?",
-    "answer_annotated": "Je n'ai pas trouvé d'événement correspondant à des activités spécifiquement destinées aux enfants en mars 2026 dans ma base pour Grand Paris Seine Ouest. Les événements disponibles commencent à partir d'avril 2026 (ex. : animations au conservatoire de Ville d'Avray) ou concernent juin 2025.",
-    "sources": [],
-    "score": "❌ Incorrect",
-    "commentaire": "Thème 6 : Limite du retriever sur les requêtes temporelles implicites ('en mars'). Plusieurs événements familiaux de mars 2026 existent dans la base (soirées chouettes, ateliers, Opéra de la Lune) mais ne sont pas remontés. La recherche vectorielle ne correlant pas 'en mars' avec 'Mars 2026' dans les chunks."
+    "answer_annotated": "Fabrication de gîtes à insectes à Boulogne-Billancourt le 14 mars 2026 (14h30-15h30 et 15h45-16h45), accessible dès 5 ans. Pas d'activité enfant trouvée spécifiquement à Ville-d'Avray ou Meudon pour mars 2026.",
+    "sources": ["BOULOGNE-BILLANCOURT : Fabrication de gîtes à insectes"],
+    "score": "⚠️ Partiel",
+    "commentaire": "Thème 6 : Une activité enfant pertinente en mars est trouvée (gîtes à insectes). D'autres activités enfants possibles (Opéra de la Lune le 19 mars) ne sont pas remontées car le terme 'enfants' n'apparaît pas dans les métadonnées de ces événements. Nette amélioration vs le run précédent (aucun résultat)."
   },
   {
     "id": 7,
     "question": "Et à Meudon, y a-t-il aussi des ateliers sur la nature ?",
-    "answer_annotated": "Oui, à Meudon il y a des ateliers nature à la Maison de la Nature et de l'Arbre (14 ruelle des ménagères) : une Fresque du sol le 14 juin 2025 de 14h30 à 17h30 (gratuit, sur inscription, dès 7 ans) et une Exploration botanique en duo le 15 juin 2025 de 14h à 18h (gratuit, accès libre). Appeler le 0 800 10 10 21 pour plus d'infos.",
-    "sources": ["Fresque du Sol - Meudon", "Exploration botanique en duo - Meudon"],
-    "score": "⚠️ Partiel",
-    "commentaire": "Thème 7 : Des ateliers nature à Meudon sont bien trouvés mais en juin 2025 (passés). Les événements de mars 2026 (‘soirées chouettes’, découverte des oiseaux) ne sont pas remontés. Ce test s'exécute sans mémoire des questions précédentes (pas de contexte Meudon injecté)."
+    "answer_annotated": "Deux ateliers liés à la nature à Meudon en mars 2026 : (1) La couture comme outil écologique, du 3 au 6 mars, 13h30-17h30, 14 ruelle des ménagères ; (2) Tous au compost (atelier sur le compostage).",
+    "sources": ["La couture comme outil écologique - Meudon", "Tous au compost - Meudon"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 7 : Deux ateliers nature/écologie à Meudon en mars 2026 trouvés. Auparavant seuls des événements de juin 2025 étaient remontés. Le filtre mois=Mars dans le contexte conversationnel résout le problème."
   },
   {
     "id": 8,
     "question": "Y a-t-il un événement ce dimanche ?",
-    "answer_annotated": "Je n'ai pas trouvé d'événement correspondant ce dimanche 29 mars 2026 dans ma base pour Grand Paris Seine Ouest. Les prochains événements disponibles sont la Fête de la Musique le 21 juin 2026 à Meudon (gratuit) et divers ateliers en avril 2026.",
-    "sources": [],
-    "score": "⚠️ Partiel",
-    "commentaire": "Thème 8 : Question temporelle relative ('ce dimanche' = 29 mars 2026). Le LLM interprète parfois la date courante comme un dimanche (erreur). Le concert Schumann & Gershwin du 22 mars étant passé (avant le 25 mars), aucun événement n'est disponible pour le dimanche 29 mars dans la base. Limite connue des références temporelles relatives."
+    "answer_annotated": "Gala de danse, 29 mars 2026 (dimanche), 19h30-21h00, 15 boulevard des Nations Unies, 92190 Meudon.",
+    "sources": ["Gala de danse - Meudon"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 8 : 'Ce dimanche' = 29 mars 2026 (dimanche effectif). Le DateAwareRetriever détecte 'ce dimanche' → filtre mois=Mars. Le gala de danse est trouvé avec date, heure et lieu. Auparavant aucun résultat."
   },
   {
     "id": 9,
     "question": "Y a-t-il des événements à Issy-les-Moulineaux ?",
-    "answer_annotated": "Le Rallye Educap City se tient au Parvis de Corentin Celton à Issy-les-Moulineaux : priorité aux équipes de 10h à 16h, grand public de 16h à 17h30. Entrée gratuite pour le grand public. Inscription obligatoire pour les équipes via clavim.asso.fr. Note : la date exacte est à vérifier sur le site officiel.",
-    "sources": ["Rallye Educap City - Issy-les-Moulineaux"],
-    "score": "⚠️ Partiel",
-    "commentaire": "Thème 9 : Un événement à Issy est trouvé mais il date de 2025. Les événements de mars 2026 (atelier découverte des oiseaux, petit-déjeuner débat) ne sont pas remontés par le retriever. La diversité géographique du MMR peut évincer les chunks les plus récents."
+    "answer_annotated": "FACE(S) le 28 mars 2026, 16h00-17h15, au 11-13 rue Danton, 92130 Issy-les-Moulineaux. Également : atelier 'Une jardinière de légumes pour mon balcon !' en mars 2026.",
+    "sources": ["FACE(S) - Issy-les-Moulineaux", "Une jardinière de légumes - Issy-les-Moulineaux"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 9 : Deux événements réels à Issy en mars 2026 trouvés. La reformulation par le condense prompt ajoute 'mars 2026' au contexte. Auparavant seuls des événements de 2025 étaient remontés."
   },
   {
     "id": 10,
     "question": "Quels événements gratuits sont proposés en mars ?",
-    "answer_annotated": "Je n'ai pas trouvé d'événement correspondant dans ma base pour le mois de mars 2026. Les événements culturels gratuits mentionnés concernent d'autres périodes : Balade urbaine à vélo (28 juin 2025, Meudon) ou Forum de l'Habitat (22 novembre 2025, Sèvres). Reformuler avec une ville ou une catégorie précise peut améliorer les résultats.",
-    "sources": [],
-    "score": "❌ Incorrect",
-    "commentaire": "Thème 10 : La requête générique 'en mars + gratuits' combine deux filtres (temporel + tarif) que le retriever vectoriel ne peut pas traiter conjointement. De nombreux événements gratuits de mars 2026 existent dans la base. Amélioration possible : filtrage métadonnées post-retrieval ou reformulation forcée de la question avec date explicite."
+    "answer_annotated": "Événements gratuits en mars 2026 : 'Les voix du rêve | Ciné-concert' le 12 mars à Boulogne-Billancourt ; événements à Issy-les-Moulineaux également trouvés. Pas d'événements gratuits trouvés spécifiquement pour Ville-d'Avray et Meudon.",
+    "sources": ["Les voix du rêve - Boulogne-Billancourt"],
+    "score": "⚠️ Partiel",
+    "commentaire": "Thème 10 : Des événements gratuits en mars sont trouvés, principalement à Boulogne et Issy. Le retriever filtre bien mois=Mars mais la combinaison 'gratuit + mars' reste complexe : le tarif n'est pas toujours explicite dans les données. Nette amélioration vs le run précédent (aucun résultat mars)."
   }
 ]
