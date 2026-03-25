@@ -26,7 +26,7 @@ import pandas as pd
 import os
 import sys
 import ast
-from datetime import datetime
+
 
 # ==================== CONFIGURATION ====================
 DATA_DIR = "data"
@@ -242,11 +242,11 @@ def clean_events_soft() -> pd.DataFrame:
                                 formatted_times.append(f"{begin_str} - {end_str}")
                             else:
                                 formatted_times.append(begin_str)
-                        except:
+                        except Exception:
                             pass
             
             return " | ".join(formatted_times) if formatted_times else "Pas de dates disponibles"
-        except:
+        except Exception:
             return "Pas de dates disponibles"
     
     if "timings" in df.columns:
@@ -285,7 +285,7 @@ def clean_events_soft() -> pd.DataFrame:
                         methods.append(f"Email: {value}")
             
             return " | ".join(methods) if methods else "Pas de mode d'inscription spécifié"
-        except:
+        except Exception:
             return "Pas de mode d'inscription spécifié"
     
     if "registration" in df.columns:
@@ -316,7 +316,7 @@ def clean_events_soft() -> pd.DataFrame:
                         links.append(link)
             
             return " | ".join(links) if links else "Pas de lien spécifié"
-        except:
+        except Exception:
             return "Pas de lien spécifié"
     
     if "links" in df.columns:
@@ -350,7 +350,7 @@ def clean_events_soft() -> pd.DataFrame:
                 return f"Jusqu'à {max_age} ans"
             
             return "Pas de restriction d'âge"
-        except:
+        except Exception:
             return "Pas de restriction d'âge"
     
     if "age" in df.columns:
@@ -382,7 +382,7 @@ def clean_events_soft() -> pd.DataFrame:
                             return v.strip()
             
             return "Pas d'informations de conditions disponibles"
-        except:
+        except Exception:
             return "Pas d'informations de conditions disponibles"
     
     if "conditions" in df.columns:

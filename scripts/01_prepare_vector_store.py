@@ -19,7 +19,6 @@ Dépendances principales:
 # ============================================================================
 # IMPORTS - BIBLIOTHÈQUE STANDARD
 # ============================================================================
-import os
 from pathlib import Path
 import logging
 
@@ -27,7 +26,6 @@ import logging
 # IMPORTS - TRAITEMENT DES DONNÉES
 # ============================================================================
 import pandas as pd
-import numpy as np
 
 # ============================================================================
 # IMPORTS - LANGCHAIN ET VECTORISATION (RAG)
@@ -439,7 +437,7 @@ def test_similarity_search(embeddings):
             embeddings,
             allow_dangerous_deserialization=True
         )
-        logger.info(f"✅ Vector store chargé avec succès")
+        logger.info("✅ Vector store chargé avec succès")
         
         # Requêtes de test en français - couvrant différents types d'événements
         test_queries = [
@@ -452,9 +450,9 @@ def test_similarity_search(embeddings):
         
         # Parcourir chaque requête de test
         for query_idx, query in enumerate(test_queries, 1):
-            logger.info(f"─" * 70)
+            logger.info("─" * 70)
             logger.info(f"REQUÊTE {query_idx}: \"{query}\"")
-            logger.info(f"─" * 70)
+            logger.info("─" * 70)
             
             # Effectuer la recherche par similarité sémantique (top 3 résultats)
             results = vectorstore.similarity_search(query, k=3)
@@ -466,8 +464,6 @@ def test_similarity_search(embeddings):
             # Afficher chaque résultat dans un format clair et structuré
             for result_idx, result in enumerate(results, 1):
                 metadata = result.metadata
-                content = result.page_content
-                
                 # Extraire les informations clés depuis les métadonnées
                 title = metadata.get("title", "N/A")
                 location = metadata.get("location", "N/A")
