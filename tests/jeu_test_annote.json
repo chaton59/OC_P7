@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "question": "Quels événements y a-t-il à Ville-d'Avray ce mois-ci ?",
+    "answer_annotated": "À Ville-d'Avray, les traditionnelles soirées chouettes sont de retour le 13 mars 2026 de 19h30 à 21h00. C'est une balade nocturne en silence à la Maison de la Nature et de l'Arbre où vous pourrez découvrir les animaux nocturnes. L'atelier est gratuit pour toute la famille sur inscription.",
+    "sources": ["***COMPLET *** VILLE D'AVRAY : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 1 : Soirées chouettes Ville-d'Avray"
+  },
+  {
+    "id": 2,
+    "question": "Y a-t-il un concert de jazz à Meudon en mars ?",
+    "answer_annotated": "Oui, le 23 mars 2026, il y a le concert 'Jazz in GPSO - sketches of Miles' à Meudon de 19h30 à 21h00. C'est un concert des étudiants des départements Jazz des conservatoires de Boulogne-Billancourt, Meudon et Sèvres qui revisite les compositions de Miles Davis. L'entrée se fait sur réservation.",
+    "sources": ["Jazz in GPSO - sketches of Miles"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 2 : Concert jazz Meudon"
+  },
+  {
+    "id": 3,
+    "question": "Je veux apprendre à fabriquer un gîte à insectes, qu'est-ce que vous proposez ?",
+    "answer_annotated": "Boulogne-Billancourt propose un atelier sur la fabrication de gîtes à insectes le 14 mars 2026. Il y a deux créneaux : de 14h30 à 15h30 et de 15h45 à 16h45 à la Médiathèque du Point du Jour. L'atelier est gratuit et accessible à partir de 5 ans accompagné d'un adulte. Vous apprendrez pourquoi les insectes sont essentiels, comment installer ou fabriquer un gîte chez vous.",
+    "sources": ["BOULOGNE-BILLANCOURT : Fabrication de gîtes à insectes -"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 3 : Atelier gîtes à insectes"
+  },
+  {
+    "id": 4,
+    "question": "Où puis-je faire un atelier vélo à Boulogne-Billancourt ?",
+    "answer_annotated": "Boulogne-Billancourt organise un atelier vélo le 21 mars 2026 de 9h30 à 13h30 Place Jules Guesde. Il propose trois animations : un diagnostic technique avec petites réparations, une sensibilisation à la sécurité routière, et un test d'engins de déplacements personnels. L'atelier est gratuit.",
+    "sources": ["Atelier vélo : diagnostic et petite réparation, sécurité routière vue du guidon et atelier de test d'engins de déplacements personnels"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 4 : Atelier vélo"
+  },
+  {
+    "id": 5,
+    "question": "Y a-t-il une sortie VTT possibilité à Meudon ?",
+    "answer_annotated": "Oui, il y a une sortie VTT dans la forêt de Meudon le 21 mars 2026 de 10h00 à 12h00. Le départ se fait au complexe sportif Marcel Bec. La participation est gratuite et accessible aux enfants à partir de 8 ans et aux adultes. Il faut présenter un justificatif de domicile, porter un casque et avoir un VTT en bon état.",
+    "sources": ["Sortie VTT dans la forêt de Meudon"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 5 : Sortie VTT Meudon"
+  },
+  {
+    "id": 6,
+    "question": "Quelles activités pour les enfants peut-on faire en mars ?",
+    "answer_annotated": "Plusieurs activités familiales sont proposées : les soirées chouettes à Ville-d'Avray (13 mars), Meudon (14 mars) et Marnes-la-Coquette (21 mars), l'atelier gîtes à insectes à Boulogne (14 mars) dès 5 ans, l'Opéra de la Lune à Boulogne (19 mars) pour tous les âges, la découverte des oiseaux à Issy-les-Moulineaux (18 mars) à partir de 3 ans, et la sortie VTT à Meudon (21 mars) à partir de 8 ans.",
+    "sources": ["***COMPLET *** VILLE D'AVRAY : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***", "***COMPLET*** MEUDON : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***", "BOULOGNE-BILLANCOURT : Fabrication de gîtes à insectes -", "L'Opéra de la Lune", "ISSY-LES-MOULINEAUX - Je découvre les oiseaux d'île de France et leurs chants"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 6 : Événements famille/enfants"
+  },
+  {
+    "id": 7,
+    "question": "Et à Meudon, y a-t-il aussi des ateliers sur la nature ?",
+    "answer_annotated": "Oui, à Meudon il y a plusieurs activités : les soirées chouettes le 14 mars, un atelier de découverte des oiseaux d'Île-de-France et leurs chants le 25 mars de 15h à 17h au conservatoire Marcel Dupré, et un concert jazz le 23 mars. Ces activités permettent de mieux comprendre et accueillir la nature et les animaux.",
+    "sources": ["***COMPLET*** MEUDON : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***", "MEUDON - Je découvre les oiseaux d'île de France et leurs chants"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 7 : Mémoire court-terme avec contexte Meudon"
+  },
+  {
+    "id": 8,
+    "question": "Y a-t-il un événement ce dimanche ?",
+    "answer_annotated": "Oui, dimanche 22 mars 2026 à 16h, il y a un concert 'Schumann et Gershwin' au théâtre de l'Atrium de Chaville avec Sophie Vazeille au piano et l'orchestre symphonique d'Accords Majeurs. Les tarifs sont 15€ en plein tarif, 10€ en tarif réduit pour les adhérents et moins de 12 ans, et gratuit pour les élèves du conservatoire.",
+    "sources": ["Schumann et Gershwin avec l'orchestre symphonique d'Accords Majeurs"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 8 : Question temporelle (ce week-end)"
+  },
+  {
+    "id": 9,
+    "question": "Y a-t-il des événements à Issy-les-Moulineaux ?",
+    "answer_annotated": "Oui, il y a deux événements à Issy-les-Moulineaux : un atelier gratuit et libre de découverte des oiseaux d'Île-de-France et leurs chants mercredi 18 mars de 15h à 17h au conservatoire Niedermeyer, accessible à partir de 3 ans, et un petit-déjeuner débat 'Souveraineté numérique : l'Europe face au 7e continent' vendredi 20 mars de 9h à 10h30.",
+    "sources": ["ISSY-LES-MOULINEAUX - Je découvre les oiseaux d'île de France et leurs chants"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 9 : Question lieu précis (Issy-les-Moulineaux)"
+  },
+  {
+    "id": 10,
+    "question": "Quels événements gratuits sont proposés en mars ?",
+    "answer_annotated": "Plusieurs événements gratuits sont proposés en mars : les soirées chouettes à Ville-d'Avray (13 mars), Meudon (14 mars) et Marnes-la-Coquette (21 mars), l'atelier gîtes à insectes à Boulogne (14 mars), les ateliers vélo à Boulogne (21 mars) et Vanves (25 mars), la sortie VTT à Meudon (21 mars), la découverte des oiseaux à Issy (18 mars) et Meudon (25 mars), et le concert 'Paris s'éveille' à Boulogne (24 mars). Tous demandent une inscription préalable.",
+    "sources": ["***COMPLET *** VILLE D'AVRAY : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***", "***COMPLET*** MEUDON : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***", "***COMPLET ***  MARNES-LA-COQUETTE : Les traditionnelles \"soirées chouettes\" sont de retour ! ***COMPLET - sur liste d''attente ***", "BOULOGNE-BILLANCOURT : Fabrication de gîtes à insectes -", "Atelier vélo : diagnostic et petite réparation, sécurité routière vue du guidon et atelier de test d'engins de déplacements personnels", "Atelier vélo : Aide à l'auto-réparation et sécurité routière vue du guidon", "Sortie VTT dans la forêt de Meudon", "ISSY-LES-MOULINEAUX - Je découvre les oiseaux d'île de France et leurs chants", "MEUDON - Je découvre les oiseaux d'île de France et leurs chants", "Paris s'éveille | Orchestre Symphonique ARCANA"],
+    "score": "✅ Correct",
+    "commentaire": "Thème 10 : Événements gratuits (question générale)"
+  }
+]

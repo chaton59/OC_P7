@@ -157,7 +157,7 @@ Lance `scripts/01_prepare_vector_store.py` en **background task** (HTTP 202 imm�
 
 ## 7. Évaluation du système
 
-### Jeu de test annoté (extrait)
+### Jeu de test annoté (10 exemples) : voir tests/test_cases_annotated.json
 
 | # | Question | Réponse de référence | Score observé |
 |---|---|---|---|
@@ -292,8 +292,6 @@ Créer un fichier `.env` à la racine (non versionné) :
 ```
 MISTRAL_API_KEY=your_key_here
 ```
-
----
 
 ## 🚀 Lancement en 1 commande (Docker)
 
