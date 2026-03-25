@@ -10,6 +10,7 @@ Ce module gère :
 
 import os
 import asyncio
+from datetime import date
 from pathlib import Path
 from typing import Optional, Dict, List, Any
 
@@ -118,9 +119,15 @@ except Exception as e:
 # Garde un prompt simple, lisible et entièrement portable.
 # C'est idéal pour le POC : zéro dépendance nouvelle, zéro stockage externe,
 # et une consigne claire pour rester fidèle au contexte RAG.
-system_prompt = """Tu es un assistant expert en événements culturels pour Grand Paris Seine Ouest.
+_MONTHS_FR = ["janvier","février","mars","avril","mai","juin",
+              "juillet","août","septembre","octobre","novembre","décembre"]
+_today = date.today()
+_today_str = f"{_today.day} {_MONTHS_FR[_today.month - 1]} {_today.year}"
+
+system_prompt = f"""Tu es un assistant expert en événements culturels pour Grand Paris Seine Ouest.
 Réponds uniquement en français, de manière claire et pédagogique.
-Utilise uniquement le contexte suivant pour répondre. Si tu ne sais pas, dis-le."""
+Utilise uniquement le contexte suivant pour répondre. Si tu ne sais pas, dis-le.
+Aujourd'hui nous sommes le {_today_str}. Tiens compte de cette date pour interpréter les références temporelles (ce week-end, ce mois-ci, prochainement, etc.)."""
 
 # Utilise le placeholder {question} attendu par ConversationalRetrievalChain.
 # Cela permet d'intégrer la mémoire sans casser le flux de la chaîne standard.

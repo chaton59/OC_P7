@@ -123,6 +123,27 @@ def prepare_documents(df: pd.DataFrame) -> list[Document]:
     Returns:
         Liste d'objets Document LangChain optimisés pour la récupération RAG
     """
+    # Mapping des mois anglais abrégés (format OpenAgenda) vers noms français complets.
+    # Réduit l'écart sémantique entre "Mar 2026" indexé et "mars 2026" dans la requête.
+    MONTHS_FR = {
+        "Jan": "Janvier", "Feb": "Février", "Mar": "Mars", "Apr": "Avril",
+        "May": "Mai",     "Jun": "Juin",    "Jul": "Juillet", "Aug": "Août",
+        "Sep": "Septembre", "Oct": "Octobre", "Nov": "Novembre", "Dec": "Décembre"
+    }
+
+    import re as _re
+
+    def _timings_to_fr(timings_str: str) -> str:
+        """Remplace les abréviations de mois anglaises par les noms français complets."""
+        for abbr, full in MONTHS_FR.items():
+            timings_str = _re.sub(rf'\b{abbr}\b', full, str(timings_str))
+        return timings_str
+
+    def _extract_city(location_str: str) -> str:
+        """Extrait le nom de ville depuis le format 'adresse, code_postal, Ville'."""
+        parts = [p.strip() for p in str(location_str).split(',')]
+        return parts[-1] if len(parts) >= 2 else location_str
+
     documents = []
     
     # Parcourir chaque événement du DataFrame
@@ -141,19 +162,24 @@ def prepare_documents(df: pd.DataFrame) -> list[Document]:
         # (ex: "***COMPLET ***", "***Sur liste d'attente***") qui polluent la représentation
         # vectorielle et causent des faux négatifs lors du retrieval.
         # Le titre original reste intact dans les métadonnées.
-        import re as _re
         title_clean = _re.sub(r'\*+[^*]*\*+', '', str(title))  # supprime ***...***
         title_clean = _re.sub(r'\s+', ' ', title_clean).strip()
         if not title_clean:
             title_clean = str(title)
 
+        # Convertir les mois en français et extraire la ville pour améliorer le retrieval
+        timings_fr = _timings_to_fr(timings)
+        city = _extract_city(location)
+
         # Formater le contenu en français structuré et optimisé pour la recherche sémantique
-        # Cette structure clarifie les informations clés pour le modèle d'embeddings
+        # La ville est placée en tête du chunk pour augmenter son poids dans le vecteur.
         text_content = f"""Événement culturel : {title_clean}
 
-Horaires : {timings}
+Ville : {city}
 
-Lieu : {location}
+Horaires : {timings_fr}
+
+Lieu complet : {location}
 
 Description : {description}
 
@@ -171,6 +197,7 @@ Liens utiles : {row.get('links', 'N/A')}"""
             "source": "openagenda",  # Source pour traçabilité
             "title": title,
             "location": location,
+            "city": city,
             "timings": timings,
             "longDescription": description,
             "age": age_requirement,
