@@ -136,10 +136,20 @@ def prepare_documents(df: pd.DataFrame) -> list[Document]:
         age_requirement = row.get('age', 'N/A')
         registration = row.get('registration', 'N/A')
         conditions = row.get('conditions', 'N/A')
-        
+
+        # Nettoyer le titre pour l'embedding : supprimer les marqueurs de statut
+        # (ex: "***COMPLET ***", "***Sur liste d'attente***") qui polluent la représentation
+        # vectorielle et causent des faux négatifs lors du retrieval.
+        # Le titre original reste intact dans les métadonnées.
+        import re as _re
+        title_clean = _re.sub(r'\*+[^*]*\*+', '', str(title))  # supprime ***...***
+        title_clean = _re.sub(r'\s+', ' ', title_clean).strip()
+        if not title_clean:
+            title_clean = str(title)
+
         # Formater le contenu en français structuré et optimisé pour la recherche sémantique
         # Cette structure clarifie les informations clés pour le modèle d'embeddings
-        text_content = f"""Événement culturel : {title}
+        text_content = f"""Événement culturel : {title_clean}
 
 Horaires : {timings}
 
