@@ -150,12 +150,12 @@ def prepare_documents(df: pd.DataFrame) -> list[Document]:
     for idx, row in df.iterrows():
         # ADAPTATION 1: Créer le contenu riche formaté en français
         # Extraction des colonnes réelles du CSV avec gestion des valeurs manquantes
-        title = row.get('title', 'N/A')
-        location = row.get('location', 'N/A')
-        timings = row.get('timings', 'N/A')
-        description = row.get('longDescription', 'N/A')
+        title = row.get('titre', 'N/A')
+        location = row.get('lieu', 'N/A')
+        timings = row.get('horaires', 'N/A')
+        description = row.get('description', 'N/A')
         age_requirement = row.get('age', 'N/A')
-        registration = row.get('registration', 'N/A')
+        registration = row.get('inscription', 'N/A')
         conditions = row.get('conditions', 'N/A')
 
         # Nettoyer le titre pour l'embedding : supprimer les marqueurs de statut
@@ -167,9 +167,9 @@ def prepare_documents(df: pd.DataFrame) -> list[Document]:
         if not title_clean:
             title_clean = str(title)
 
-        # Convertir les mois en français et extraire la ville pour améliorer le retrieval
+        # Convertir les mois en français (sécurité, au cas où) et lire la ville directement
         timings_fr = _timings_to_fr(timings)
-        city = _extract_city(location)
+        city = row.get('ville', 'N/A')  # colonne dédiée générée par 03_clean_data.py
 
         # Formater le contenu en français structuré et optimisé pour la recherche sémantique
         # La ville est placée en tête du chunk pour augmenter son poids dans le vecteur.
@@ -189,7 +189,7 @@ Public cible - Âge recommandé : {age_requirement}
 
 Modalités d'inscription : {registration}
 
-Liens utiles : {row.get('links', 'N/A')}"""
+Liens utiles : {row.get('liens', 'N/A')}"""
         
         # ADAPTATION 2: Stocker TOUTES les colonnes originales dans les métadonnées
         # Cela permet au système RAG d'accéder aux données originales complètes lors de la génération
@@ -203,7 +203,8 @@ Liens utiles : {row.get('links', 'N/A')}"""
             "age": age_requirement,
             "registration": registration,
             "conditions": conditions,
-            "links": row.get('links', 'N/A'),
+            "links": row.get('liens', 'N/A'),
+            "ville": city,
             "row_index": idx  # Index pour retour aux données brutes
         }
         

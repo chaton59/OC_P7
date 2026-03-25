@@ -89,7 +89,7 @@ except Exception as e:
 # les plus diversifiés. Evite de renvoyer 4 chunks du même lieu (ex: Meudon).
 retriever = vectorstore.as_retriever(
     search_type="mmr",
-    search_kwargs={"k": 6, "fetch_k": 20, "lambda_mult": 0.7}
+    search_kwargs={"k": 6, "fetch_k": 50, "lambda_mult": 0.7}
 )
 print("✅ Retriever MMR configuré (k=6, fetch_k=20) pour diversité géographique")
 
@@ -124,10 +124,16 @@ _MONTHS_FR = ["janvier","février","mars","avril","mai","juin",
 _today = date.today()
 _today_str = f"{_today.day} {_MONTHS_FR[_today.month - 1]} {_today.year}"
 
-system_prompt = f"""Tu es un assistant expert en événements culturels pour Grand Paris Seine Ouest.
-Réponds uniquement en français, de manière claire et pédagogique.
-Utilise uniquement le contexte suivant pour répondre. Si tu ne sais pas, dis-le.
-Aujourd'hui nous sommes le {_today_str}. Tiens compte de cette date pour interpréter les références temporelles (ce week-end, ce mois-ci, prochainement, etc.)."""
+system_prompt = f"""Tu es un assistant expert en événements culturels pour Grand Paris Seine Ouest (GPSO).
+Aujourd'hui, nous sommes le {_today_str}.
+
+RÈGLES STRICTES :
+1. Réponds UNIQUEMENT en te basant sur le contexte fourni. Ne fabrique aucun événement.
+2. Si la réponse n'est pas dans le contexte, dis clairement : "Je n'ai pas trouvé d'événement correspondant dans ma base."
+3. Pour chaque événement cité, indique toujours : le nom, la date, l'heure, le lieu précis, le tarif et les conditions d'inscription si disponibles.
+4. Utilise la date d'aujourd'hui pour interpréter "ce week-end", "ce mois-ci", "prochainement".
+5. Réponds en français, de façon structurée et concise (liste à puces si plusieurs événements).
+6. Ne reformule pas la question, va directement à la réponse."""
 
 # Utilise le placeholder {question} attendu par ConversationalRetrievalChain.
 # Cela permet d'intégrer la mémoire sans casser le flux de la chaîne standard.

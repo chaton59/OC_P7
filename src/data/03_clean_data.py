@@ -187,11 +187,20 @@ def clean_events_soft() -> pd.DataFrame:
         return ""
     
     if "location" in df.columns:
+        # Extraire le nom de ville seul dans une colonne dédiée
+        # (avant de formatter la location complète)
+        df["city"] = df["location"].apply(
+            lambda loc: str(loc.get("city", "") or "").strip() if isinstance(loc, dict) else ""
+        )
+        city_count = (df["city"].str.len() > 0).sum()
+        print(f"      ✓ Colonne 'city' extraite : {city_count} villes renseignées")
+
         df["location"] = df["location"].apply(extract_location_formatted)
         locations_count = (df["location"].str.len() > 0).sum()
         print(f"      ✓ Lieux formatés : {locations_count} avec address/code postal/ville")
     else:
         df["location"] = ""
+        df["city"] = ""
 
     # Formatage timings (dates/heures lisibles)
     def format_timings(timings_str):
@@ -219,10 +228,15 @@ def clean_events_soft() -> pd.DataFrame:
                         try:
                             dt_begin = pd.to_datetime(begin)
                             dt_end = pd.to_datetime(end) if end else None
-                            
-                            # Format : "13 mars 2026 19h30"
-                            begin_str = dt_begin.strftime("%d %b %Y %Hh%M").replace(' ', ' ')
-                            
+
+                            # Mois en français complets pour aligner avec les requêtes utilisateur
+                            _MONTHS_FR = {
+                                1: "Janvier", 2: "Février", 3: "Mars", 4: "Avril",
+                                5: "Mai", 6: "Juin", 7: "Juillet", 8: "Août",
+                                9: "Septembre", 10: "Octobre", 11: "Novembre", 12: "Décembre"
+                            }
+                            begin_str = f"{dt_begin.day:02d} {_MONTHS_FR[dt_begin.month]} {dt_begin.year} {dt_begin.strftime('%Hh%M')}"
+
                             if dt_end:
                                 end_str = dt_end.strftime("%Hh%M")
                                 formatted_times.append(f"{begin_str} - {end_str}")
@@ -385,7 +399,7 @@ def clean_events_soft() -> pd.DataFrame:
         "originAgenda", "onlineAccessLink", "valid", "createdAt", "motive", "draft",
         "firstTiming", "accessibility", "updatedAt", "addMethod", "attendanceMode",
         "sourceAgendas", "creatorUid", "lastTiming", "ownerUid", "nextTiming",
-        "uid", "description", "keywords", "city"
+        "uid", "description", "keywords"
     ]
     
     # Supprimer les colonnes qui existent
@@ -429,9 +443,21 @@ def clean_events_soft() -> pd.DataFrame:
     
     print(f"      ✓ Colonnes restantes : {len(df.columns)}")
 
-    # 9️⃣ SECTION 6 - SAUVEGARDE
-    print(f"\n   === SECTION 6 : Sauvegarde ===")
-    
+    # 9️⃣ SECTION 6 - RENOMMAGE EN FRANÇAIS + SAUVEGARDE
+    print(f"\n   === SECTION 6 : Renommage colonnes + Sauvegarde ===")
+
+    col_rename = {
+        "title":           "titre",
+        "location":        "lieu",
+        "timings":         "horaires",
+        "longDescription": "description",
+        "links":           "liens",
+        "registration":    "inscription",
+        "city":            "ville",
+    }
+    df = df.rename(columns={k: v for k, v in col_rename.items() if k in df.columns})
+    print(f"      ✓ Colonnes renommées en français : {[v for k, v in col_rename.items() if k in [c for c in col_rename]]}")
+
     df = df.reset_index(drop=True)
     df.to_csv(CLEAN_FILE, index=False, encoding="utf-8")
     print(f"      ✓ CSV sauvegardé : {CLEAN_FILE}")

@@ -2,81 +2,81 @@
   {
     "id": 1,
     "question": "Quels événements y a-t-il à Ville-d'Avray ce mois-ci ?",
-    "answer_annotated": "À Ville-d'Avray, les traditionnelles soirées chouettes sont de retour le 13 mars 2026 de 19h30 à 21h00. C'est une balade nocturne en silence à la Maison de la Nature et de l'Arbre où vous pourrez découvrir les animaux nocturnes. L'atelier est gratuit pour toute la famille sur inscription.",
-    "sources": ["***COMPLET *** VILLE D'AVRAY : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***"],
-    "score": "✅ Correct",
-    "commentaire": "Thème 1 : Soirées chouettes Ville-d'Avray"
+    "answer_annotated": "Je n'ai pas trouvé d'événement correspondant à Ville-d'Avray pour le mois de mars 2026 dans ma base. Les événements disponibles pour Ville-d'Avray sont : Foot Tri (6 septembre 2025) et Le Week-end des Rencontres Écologiques (21 juin 2025).",
+    "sources": ["VILLE D'AVRAY - FOOT TRI"],
+    "score": "⚠️ Partiel",
+    "commentaire": "Thème 1 : Le retriever ne résout pas 'ce mois-ci' en 'Mars 2026' car la recherche vectorielle précède la connaissance de la date. Limite RAG connue. L'événement 'Soirées chouettes' du 13 mars existe dans la base mais n'est pas remonté. Reformuler la question avec une date explicite ('en mars 2026') améliorerait le résultat."
   },
   {
     "id": 2,
     "question": "Y a-t-il un concert de jazz à Meudon en mars ?",
-    "answer_annotated": "Oui, le 23 mars 2026, il y a le concert 'Jazz in GPSO - sketches of Miles' à Meudon de 19h30 à 21h00. C'est un concert des étudiants des départements Jazz des conservatoires de Boulogne-Billancourt, Meudon et Sèvres qui revisite les compositions de Miles Davis. L'entrée se fait sur réservation.",
+    "answer_annotated": "Oui, il y a un concert étudiés des départements Jazz des conservatoires de GPSO (Jazz in GPSO - sketches of Miles) le lundi 23 mars 2026 au Conservatoire de Meudon, avec un concert étudiants à 17h (entrée libre) et le concert principal à 19h30. Aucune inscription requise.",
     "sources": ["Jazz in GPSO - sketches of Miles"],
     "score": "✅ Correct",
-    "commentaire": "Thème 2 : Concert jazz Meudon"
+    "commentaire": "Thème 2 : Concert jazz Meudon bien trouvé. Les deux créneaux (17h et 19h30) sont correctement identifiés."
   },
   {
     "id": 3,
     "question": "Je veux apprendre à fabriquer un gîte à insectes, qu'est-ce que vous proposez ?",
-    "answer_annotated": "Boulogne-Billancourt propose un atelier sur la fabrication de gîtes à insectes le 14 mars 2026. Il y a deux créneaux : de 14h30 à 15h30 et de 15h45 à 16h45 à la Médiathèque du Point du Jour. L'atelier est gratuit et accessible à partir de 5 ans accompagné d'un adulte. Vous apprendrez pourquoi les insectes sont essentiels, comment installer ou fabriquer un gîte chez vous.",
-    "sources": ["BOULOGNE-BILLANCOURT : Fabrication de gîtes à insectes -"],
-    "score": "✅ Correct",
-    "commentaire": "Thème 3 : Atelier gîtes à insectes"
+    "answer_annotated": "Grand Paris Seine Ouest propose un atelier 'Fabriquez un gîte à insectes' le dimanche 6 avril 2026 de 15h à 18h au Parc de l'hôtel de ville à Chaville. L'atelier est gratuit, accessible à partir de 5 ans, activité familiale, dans la limite des places disponibles. Aucune inscription préalable mentionnée.",
+    "sources": ["Atelier Fabriquez un gîte à insectes - Chaville"],
+    "score": "⚠️ Partiel",
+    "commentaire": "Thème 3 : Un atelier gîtes à insectes est bien trouvé, mais celui de Boulogne-Billancourt (14 mars 2026) est manqué au profit de celui de Chaville (6 avril 2026). Plusieurs ateliers existent dans la base ; le retriever MMR a favorisé la diversité géographique."
   },
   {
     "id": 4,
     "question": "Où puis-je faire un atelier vélo à Boulogne-Billancourt ?",
-    "answer_annotated": "Boulogne-Billancourt organise un atelier vélo le 21 mars 2026 de 9h30 à 13h30 Place Jules Guesde. Il propose trois animations : un diagnostic technique avec petites réparations, une sensibilisation à la sécurité routière, et un test d'engins de déplacements personnels. L'atelier est gratuit.",
-    "sources": ["Atelier vélo : diagnostic et petite réparation, sécurité routière vue du guidon et atelier de test d'engins de déplacements personnels"],
-    "score": "✅ Correct",
-    "commentaire": "Thème 4 : Atelier vélo"
+    "answer_annotated": "Boulogne-Billancourt organise des ateliers vélo à la Maison de la Planète (72 allée du Forum, 92100). Le prochain est le 8 avril 2026 de 13h30 à 17h30 : diagnostic technique, petite réparation et découverte de vélos spéciaux (cargos et électriques). Gratuit, aucune inscription mentionnée.",
+    "sources": ["Atelier vélo : diagnostic et petite réparation - Boulogne-Billancourt"],
+    "score": "⚠️ Partiel",
+    "commentaire": "Thème 4 : Des ateliers vélo à Boulogne sont bien trouvés mais le LLM privilégie le prochain événement futur (8 avril) en filtrant correctement les événements passés. L'atelier du 21 mars (passé depuis le 25 mars) n'est plus pertinent."
   },
   {
     "id": 5,
-    "question": "Y a-t-il une sortie VTT possibilité à Meudon ?",
-    "answer_annotated": "Oui, il y a une sortie VTT dans la forêt de Meudon le 21 mars 2026 de 10h00 à 12h00. Le départ se fait au complexe sportif Marcel Bec. La participation est gratuite et accessible aux enfants à partir de 8 ans et aux adultes. Il faut présenter un justificatif de domicile, porter un casque et avoir un VTT en bon état.",
+    "question": "Y a-t-il une sortie VTT possible à Meudon ?",
+    "answer_annotated": "Oui, il y a des sorties VTT organisées dans la forêt de Meudon au départ du Complexe sportif Marcel Bec (92310 Meudon). La prochaine date disponible est le 11 avril 2026 de 10h00 à 12h00. L'activité est gratuite, ouverte aux habitants de GPSO (adultes et enfants dès 8 ans), avec VTT en bon état et casque obligatoires. Inscription en ligne sur seineouest.fr.",
     "sources": ["Sortie VTT dans la forêt de Meudon"],
-    "score": "✅ Correct",
-    "commentaire": "Thème 5 : Sortie VTT Meudon"
+    "score": "⚠️ Partiel",
+    "commentaire": "Thème 5 : La sortie VTT est bien identifiée. Le LLM filtre correctement les dates passées (mars 21 = passé). L'événement d'avril 2026 n'est pas toujours remonté par le retriever ; résultat variable selon la session."
   },
   {
     "id": 6,
     "question": "Quelles activités pour les enfants peut-on faire en mars ?",
-    "answer_annotated": "Plusieurs activités familiales sont proposées : les soirées chouettes à Ville-d'Avray (13 mars), Meudon (14 mars) et Marnes-la-Coquette (21 mars), l'atelier gîtes à insectes à Boulogne (14 mars) dès 5 ans, l'Opéra de la Lune à Boulogne (19 mars) pour tous les âges, la découverte des oiseaux à Issy-les-Moulineaux (18 mars) à partir de 3 ans, et la sortie VTT à Meudon (21 mars) à partir de 8 ans.",
-    "sources": ["***COMPLET *** VILLE D'AVRAY : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***", "***COMPLET*** MEUDON : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***", "BOULOGNE-BILLANCOURT : Fabrication de gîtes à insectes -", "L'Opéra de la Lune", "ISSY-LES-MOULINEAUX - Je découvre les oiseaux d'île de France et leurs chants"],
-    "score": "✅ Correct",
-    "commentaire": "Thème 6 : Événements famille/enfants"
+    "answer_annotated": "Je n'ai pas trouvé d'événement correspondant à des activités spécifiquement destinées aux enfants en mars 2026 dans ma base pour Grand Paris Seine Ouest. Les événements disponibles commencent à partir d'avril 2026 (ex. : animations au conservatoire de Ville d'Avray) ou concernent juin 2025.",
+    "sources": [],
+    "score": "❌ Incorrect",
+    "commentaire": "Thème 6 : Limite du retriever sur les requêtes temporelles implicites ('en mars'). Plusieurs événements familiaux de mars 2026 existent dans la base (soirées chouettes, ateliers, Opéra de la Lune) mais ne sont pas remontés. La recherche vectorielle ne correlant pas 'en mars' avec 'Mars 2026' dans les chunks."
   },
   {
     "id": 7,
     "question": "Et à Meudon, y a-t-il aussi des ateliers sur la nature ?",
-    "answer_annotated": "Oui, à Meudon il y a plusieurs activités : les soirées chouettes le 14 mars, un atelier de découverte des oiseaux d'Île-de-France et leurs chants le 25 mars de 15h à 17h au conservatoire Marcel Dupré, et un concert jazz le 23 mars. Ces activités permettent de mieux comprendre et accueillir la nature et les animaux.",
-    "sources": ["***COMPLET*** MEUDON : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***", "MEUDON - Je découvre les oiseaux d'île de France et leurs chants"],
-    "score": "✅ Correct",
-    "commentaire": "Thème 7 : Mémoire court-terme avec contexte Meudon"
+    "answer_annotated": "Oui, à Meudon il y a des ateliers nature à la Maison de la Nature et de l'Arbre (14 ruelle des ménagères) : une Fresque du sol le 14 juin 2025 de 14h30 à 17h30 (gratuit, sur inscription, dès 7 ans) et une Exploration botanique en duo le 15 juin 2025 de 14h à 18h (gratuit, accès libre). Appeler le 0 800 10 10 21 pour plus d'infos.",
+    "sources": ["Fresque du Sol - Meudon", "Exploration botanique en duo - Meudon"],
+    "score": "⚠️ Partiel",
+    "commentaire": "Thème 7 : Des ateliers nature à Meudon sont bien trouvés mais en juin 2025 (passés). Les événements de mars 2026 (‘soirées chouettes’, découverte des oiseaux) ne sont pas remontés. Ce test s'exécute sans mémoire des questions précédentes (pas de contexte Meudon injecté)."
   },
   {
     "id": 8,
     "question": "Y a-t-il un événement ce dimanche ?",
-    "answer_annotated": "Oui, dimanche 22 mars 2026 à 16h, il y a un concert 'Schumann et Gershwin' au théâtre de l'Atrium de Chaville avec Sophie Vazeille au piano et l'orchestre symphonique d'Accords Majeurs. Les tarifs sont 15€ en plein tarif, 10€ en tarif réduit pour les adhérents et moins de 12 ans, et gratuit pour les élèves du conservatoire.",
-    "sources": ["Schumann et Gershwin avec l'orchestre symphonique d'Accords Majeurs"],
-    "score": "✅ Correct",
-    "commentaire": "Thème 8 : Question temporelle (ce week-end)"
+    "answer_annotated": "Je n'ai pas trouvé d'événement correspondant ce dimanche 29 mars 2026 dans ma base pour Grand Paris Seine Ouest. Les prochains événements disponibles sont la Fête de la Musique le 21 juin 2026 à Meudon (gratuit) et divers ateliers en avril 2026.",
+    "sources": [],
+    "score": "⚠️ Partiel",
+    "commentaire": "Thème 8 : Question temporelle relative ('ce dimanche' = 29 mars 2026). Le LLM interprète parfois la date courante comme un dimanche (erreur). Le concert Schumann & Gershwin du 22 mars étant passé (avant le 25 mars), aucun événement n'est disponible pour le dimanche 29 mars dans la base. Limite connue des références temporelles relatives."
   },
   {
     "id": 9,
     "question": "Y a-t-il des événements à Issy-les-Moulineaux ?",
-    "answer_annotated": "Oui, il y a deux événements à Issy-les-Moulineaux : un atelier gratuit et libre de découverte des oiseaux d'Île-de-France et leurs chants mercredi 18 mars de 15h à 17h au conservatoire Niedermeyer, accessible à partir de 3 ans, et un petit-déjeuner débat 'Souveraineté numérique : l'Europe face au 7e continent' vendredi 20 mars de 9h à 10h30.",
-    "sources": ["ISSY-LES-MOULINEAUX - Je découvre les oiseaux d'île de France et leurs chants"],
-    "score": "✅ Correct",
-    "commentaire": "Thème 9 : Question lieu précis (Issy-les-Moulineaux)"
+    "answer_annotated": "Le Rallye Educap City se tient au Parvis de Corentin Celton à Issy-les-Moulineaux : priorité aux équipes de 10h à 16h, grand public de 16h à 17h30. Entrée gratuite pour le grand public. Inscription obligatoire pour les équipes via clavim.asso.fr. Note : la date exacte est à vérifier sur le site officiel.",
+    "sources": ["Rallye Educap City - Issy-les-Moulineaux"],
+    "score": "⚠️ Partiel",
+    "commentaire": "Thème 9 : Un événement à Issy est trouvé mais il date de 2025. Les événements de mars 2026 (atelier découverte des oiseaux, petit-déjeuner débat) ne sont pas remontés par le retriever. La diversité géographique du MMR peut évincer les chunks les plus récents."
   },
   {
     "id": 10,
     "question": "Quels événements gratuits sont proposés en mars ?",
-    "answer_annotated": "Plusieurs événements gratuits sont proposés en mars : les soirées chouettes à Ville-d'Avray (13 mars), Meudon (14 mars) et Marnes-la-Coquette (21 mars), l'atelier gîtes à insectes à Boulogne (14 mars), les ateliers vélo à Boulogne (21 mars) et Vanves (25 mars), la sortie VTT à Meudon (21 mars), la découverte des oiseaux à Issy (18 mars) et Meudon (25 mars), et le concert 'Paris s'éveille' à Boulogne (24 mars). Tous demandent une inscription préalable.",
-    "sources": ["***COMPLET *** VILLE D'AVRAY : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***", "***COMPLET*** MEUDON : Les traditionnelles \"soirées chouettes\" sont de retour ! ***Sur liste d'attente***", "***COMPLET ***  MARNES-LA-COQUETTE : Les traditionnelles \"soirées chouettes\" sont de retour ! ***COMPLET - sur liste d''attente ***", "BOULOGNE-BILLANCOURT : Fabrication de gîtes à insectes -", "Atelier vélo : diagnostic et petite réparation, sécurité routière vue du guidon et atelier de test d'engins de déplacements personnels", "Atelier vélo : Aide à l'auto-réparation et sécurité routière vue du guidon", "Sortie VTT dans la forêt de Meudon", "ISSY-LES-MOULINEAUX - Je découvre les oiseaux d'île de France et leurs chants", "MEUDON - Je découvre les oiseaux d'île de France et leurs chants", "Paris s'éveille | Orchestre Symphonique ARCANA"],
-    "score": "✅ Correct",
-    "commentaire": "Thème 10 : Événements gratuits (question générale)"
+    "answer_annotated": "Je n'ai pas trouvé d'événement correspondant dans ma base pour le mois de mars 2026. Les événements culturels gratuits mentionnés concernent d'autres périodes : Balade urbaine à vélo (28 juin 2025, Meudon) ou Forum de l'Habitat (22 novembre 2025, Sèvres). Reformuler avec une ville ou une catégorie précise peut améliorer les résultats.",
+    "sources": [],
+    "score": "❌ Incorrect",
+    "commentaire": "Thème 10 : La requête générique 'en mars + gratuits' combine deux filtres (temporel + tarif) que le retriever vectoriel ne peut pas traiter conjointement. De nombreux événements gratuits de mars 2026 existent dans la base. Amélioration possible : filtrage métadonnées post-retrieval ou reformulation forcée de la question avec date explicite."
   }
 ]
